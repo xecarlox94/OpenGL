@@ -18,6 +18,9 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw_gl3.h"
 
+
+#include "tests/TestClearColor.h"
+
 int main(void)
 {
     GLFWwindow* window;
@@ -60,6 +63,7 @@ int main(void)
         ImGui_ImplGlfwGL3_Init(window, true);
         ImGui::StyleColorsDark();
 
+        test::TestClearColor test;
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -68,7 +72,13 @@ int main(void)
 
             renderer.Clear();
 
+            test.onUpdate(0.0f);
+
+            test.onRender();
+
             ImGui_ImplGlfwGL3_NewFrame();
+
+            test.onImGuiRender();
 
             ImGui::Render();
 
